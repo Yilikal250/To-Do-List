@@ -73,7 +73,7 @@ const activebuttons = () => {
   taskcontainer.addEventListener('dragenter', dragf.dragEnter)
   taskcontainer.addEventListener('dragover', dragf.dragOver);
   taskcontainer.addEventListener('dragleave', dragf.dragLeave);
-  taskcontainer.addEventListener('drop', dragf.drop)
+  taskcontainer.addEventListener('drop',(event)=>{ dragf.drop(event,taskarr)})
   
 };
 

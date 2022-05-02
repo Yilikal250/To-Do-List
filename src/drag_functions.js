@@ -17,13 +17,14 @@ export const dragLeave=(element)=> {
     element.target.classList.remove('drag-over');
 }
 
-export const drop=(element)=> {
-    element.preventDefault();
+export const drop=(element,taskarr)=> {
     let dragindex
     element.target.classList.remove('drag-over')
     let clone=element.target.cloneNode(true);
     let data=element.dataTransfer.getData("text");
     let parent=element.target.parentElement
+
+    
     if(clone.id !== data) {
         let nodelist=parent.childNodes;
         for(let i=0;i<nodelist.length;i++){
@@ -34,8 +35,12 @@ export const drop=(element)=> {
         parent.replaceChild(document.getElementById(data),element.target);
         parent.insertBefore(clone,parent.childNodes[dragindex]);
         parent.childNodes.forEach((element, index) => { element.id = index+1; });
-        parent.childNodes.forEach(element=>{
-            element.addEventListener("dragstart", dragStart)
-          })
+        
+        let taskdescription=document.querySelectorAll(".tasks-item-start p")
+        
+         taskarr.forEach((element,index)=>{element.description=taskdescription[index].textContent})
+
+          localStorage.setItem('saved', JSON.stringify(taskarr));
+          document.location.reload(true)
     }
 }
