@@ -35,7 +35,9 @@ export const drop=(element,taskarr)=> {
         parent.replaceChild(document.getElementById(data),element.target);
         parent.insertBefore(clone,parent.childNodes[dragindex]);
         parent.childNodes.forEach((element, index) => { element.id = index+1; });
-        
+        parent.childNodes.forEach(element=>{
+            element.addEventListener("dragstart", dragStart)
+          })
         let taskdescription=document.querySelectorAll(".tasks-item-start p")
         
          taskarr.forEach((element,index)=>{element.description=taskdescription[index].textContent})
