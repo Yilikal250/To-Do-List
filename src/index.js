@@ -6,6 +6,7 @@ import * as fun from './list_functions.js';
 import deleteicon from './erase_icon_img.png';
 import Check from './check.js';
 import backgroundimg from './background_img.png';
+import * as dragf from "./drag_functions.js";
 
 const background = document.querySelector('body');
 const refrescontainer = document.querySelector('.title img');
@@ -64,12 +65,22 @@ const activebuttons = () => {
       }
     });
   });
+  const tasks = document.querySelectorAll('.tasks-item');
+  tasks.forEach(element=>{
+    element.addEventListener("dragstart", dragf.dragStart)
+  })
+
+  taskcontainer.addEventListener('dragenter', dragf.dragEnter)
+  taskcontainer.addEventListener('dragover', dragf.dragOver);
+  taskcontainer.addEventListener('dragleave', dragf.dragLeave);
+  taskcontainer.addEventListener('drop', dragf.drop)
+  
 };
 
 const storagedtasks = () => {
   taskarr.forEach((element) => {
     if (element.completed === false) {
-      taskcontainer.innerHTML += `<div class="tasks-item" id="${element.index}">
+      taskcontainer.innerHTML += `<div class="tasks-item" id="${element.index}" draggable="true">
 <div class="tasks-item-start"><input type="checkbox" class="checkboxicon">
 <p>${element.description}</p>
 <input class="edit_text" type="text" placeholder="Edit Task">
@@ -78,7 +89,7 @@ const storagedtasks = () => {
 <img class="removeicon" src="${deleteicon}" alt="remove icon">
 </div>`;
     } else {
-      taskcontainer.innerHTML += `<div class="tasks-item" id="${element.index}">
+      taskcontainer.innerHTML += `<div class="tasks-item" id="${element.index}" draggable="true">
   <div class="tasks-item-start"><input type="checkbox" class="checkboxicon" checked>
   <p>${element.description}</p>
   <input class="edit_text" type="text" placeholder="Edit Task">
@@ -101,7 +112,7 @@ inputtext.addEventListener('keypress', (event) => {
     fun.add(inputtext.value, taskarr);
     inputtext.value = '';
     localStorage.setItem('saved', JSON.stringify(taskarr));
-    taskcontainer.innerHTML += `<div class="tasks-item" id="${taskarr[taskarr.length - 1].index}">
+    taskcontainer.innerHTML += `<div class="tasks-item" id="${taskarr[taskarr.length - 1].index}" draggable="true">
 <div class="tasks-item-start"><input type="checkbox" class="checkboxicon">
 <p>${taskarr[taskarr.length - 1].description}</p>
 <input class="edit_text" type="text" placeholder="Edit Task">

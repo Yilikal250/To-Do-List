@@ -82,6 +82,7 @@ body {
   column-gap: 10px;
   align-items: center;
   justify-content: space-between;
+  cursor: move;
 }
 
 .tasks-item-start {
@@ -143,4 +144,12 @@ body {
   color: gray;
   cursor: pointer;
   text-align: center;
+}
+
+.hide{
+  display: none;
+}
+
+.drag-over{
+  border: dashed 3px red;
 }
